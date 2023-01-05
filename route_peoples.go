@@ -6,11 +6,11 @@ import (
 )
 
 func (s *Server) getPeoples(c *gin.Context) {
-	people, err := s.GetPeoples()
+	people, err := s.store.GetPeoples()
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err,
+			"error": "Not found",
 		})
 		return
 	}

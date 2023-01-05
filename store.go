@@ -2,7 +2,16 @@ package main
 
 import (
 	"github.com/jmoiron/sqlx"
+	"log"
 )
+
+var schema = `
+CREATE TABLE person (
+    first_name text,
+    last_name text,
+    email text
+);
+`
 
 type Store interface {
 	Connect() error
@@ -20,6 +29,8 @@ func (dbStore *dbStore) Connect() (err error) {
 	if err != nil {
 		return err
 	}
+	log.Println("DB CONNECTED TO DB")
+	//dbStore.db.MustExec(schema)
 	return nil
 }
 
@@ -32,7 +43,7 @@ func (dbStore *dbStore) Disconnect() (err error) {
 
 func (dbStore *dbStore) GetPeoples() ([]Person, error) {
 	var people []Person
-	if err := dbStore.db.Select(&people, "SELECT * FROM people"); err != nil {
+	if err := dbStore.db.Select(&people, "SELECT * FROM person"); err != nil {
 		return nil, err
 	}
 	return people, nil
