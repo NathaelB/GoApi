@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
 	"log"
 )
 
@@ -14,7 +15,6 @@ func newServer() *Server {
 	s := &Server{
 		engine: gin.Default(),
 	}
-
 	s.Routes()
 	return s
 }
